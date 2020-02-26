@@ -11,6 +11,9 @@
                 <div class="post-content">
                     {{ $post->content}}
                 </div>
+                @if (!empty($post->category))
+                    <p>Categoria: {{$post->category->name}}</p>
+                @endif
                 <p><em>{{$post->author}}</em></p>
             </div>
         </div>

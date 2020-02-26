@@ -31,6 +31,19 @@
                     <input type="file" class="form-control-file" id="cover_image" name="cover_image_file" value="Cambia immagine">
                     </div>
 
+                    @if ($categories->count() > 0)
+                        <select class="form-group" name="category_id">
+                            <option value="">Seleziona la categoria </option>
+                            @foreach ($categories as $category)
+                                <option value="{{$category->id}}" {{ $post->category && ($post->category->id == $category->id)  ? 'selected' : ''}}>
+                                    {{$category->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                    <a href="#">Aggiungi la prima categoria </a>
+                    @endif
+
                     <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Aggiorna">
                     </div>

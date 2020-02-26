@@ -12,6 +12,7 @@
                     {{ $post->content}}
                 </div>
                 <p>Autore: {{ $post->author}}</p>
+                <p>Categoria: {{ $post->category ? $post->category->name : '-' }}</p>
                 <p>Slug: {{ $post->slug}}</p>
                 <p>Creato il: {{ $post->created_at}}</p>
                 <p>Modificato il: {{ $post->updated_at}}</p>
