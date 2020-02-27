@@ -39,6 +39,15 @@
                     @else
                     <a href="#">Aggiungi la prima categoria </a>
                     @endif
+                    @if($tags->count() > 0)
+                        <p>Seleziona i tag per questo post:</p>
+                        @foreach ($tags as $tag)
+                            <input id="tag_{{ $tag->id }}" type="checkbox" name="tag_id[]" value="{{ $tag->id }}">
+                            <label for="tag_{{ $tag->id }}">
+                                {{ $tag->name }}
+                            </label>
+                        @endforeach
+                    @endif
 
                     <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Crea">

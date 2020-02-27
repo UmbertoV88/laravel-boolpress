@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Post;
 use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
@@ -32,7 +33,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create',['categories' => $categories]);
+        $tags = Tag::all();
+        return view('admin.posts.create',['categories' => $categories, 'tags'=> $tags]);
     }
 
     /**
@@ -67,6 +69,11 @@ class PostController extends Controller
         }
         $post->slug = $slug;
         $post->save();
+
+        if(!empty($dati['tag_id'])){
+            $post->tags()->sync($dati['tag_id']);
+        }
+
         return redirect()->route('admin.posts.index');
     }
 
@@ -91,8 +98,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
+        $tags = Tag::all();
         $post = Post::find($id);
-        return view('admin.posts.edit', ['post' => $post,'categories' => $categories]);
+        return view('admin.posts.edit', ['post' => $post,'categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -116,6 +124,9 @@ class PostController extends Controller
             $dati['cover_image'] = $cover_image_path;
         }
         $post->update($dati);
+        if(!empty($dati['tag_id'])){
+            $post->tags()->sync($dati['tag_id']);
+        }
         return redirect()->route('admin.posts.index');
     }
 
@@ -129,8 +140,12 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post_image = $post->cover_image;
-        Storage::delete($post_image);
-
+        if (!empty($post_image)) {
+            Storage::delete($post_image);
+        }
+        if($post->tags->isNotEmpty()){
+            $post->tags()->sync([]);
+        }
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
