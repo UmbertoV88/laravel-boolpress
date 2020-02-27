@@ -19,6 +19,7 @@ Route::get('/grazie', 'HomeController@grazie')->name('contatti.grazie');
 
 Route::get('/blog', 'PostController@index')->name('blog');
 Route::get('/blog/{slug}', 'PostController@show')->name('blog.show');
+Route::get('/blog/categorie/{slug}', 'PostController@postCategoria')->name('blog.category');
 
 Auth::routes();
 

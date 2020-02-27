@@ -14,7 +14,7 @@ class AddSlugCategoriesTable extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            //
+            $table->string('slug')->after('description')->nullable();
         });
     }
 
@@ -26,7 +26,8 @@ class AddSlugCategoriesTable extends Migration
     public function down()
     {
         Schema::table('categories', function (Blueprint $table) {
-            //
+            $table->dropColumn('slug');
+
         });
     }
 }

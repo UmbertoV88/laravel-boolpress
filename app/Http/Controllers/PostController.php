@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -14,6 +15,21 @@ class PostController extends Controller
 
     public function show($slug) {
         $post = Post::where('slug', $slug)->first();
-        return view('single-post',['post' => $post]);
+        if (!empty($post)) {
+            return view('single-post',['post' => $post]);
+        }else{
+            return abort(404);
+        }
+    }
+
+    public function postCategoria($slug){
+        $categoria = Category::where('slug',$slug)->first();
+        if(!empty($categoria)) {
+            $post_categoria = $categoria->posts;
+
+            return view('single-category',['category'=>$categoria,'posts' => $post_categoria]);
+        }else{
+            return abort(404);
+        }
     }
 }
