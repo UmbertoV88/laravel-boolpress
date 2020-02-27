@@ -18,7 +18,7 @@
                 @if (($post->tags)->isNotEmpty())
                     <p>
                         @foreach ($post->tags as $tag)
-                            {{ $tag->name }}{{$loop->last ? '' : ','}}
+                            <a href="{{route('blog.tag',['slug' => $tag->slug])}}">{{ $tag->name }}{{$loop->last ? '' : ','}}
                         @endforeach
                     </p>
                 @endif
