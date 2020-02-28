@@ -45,6 +45,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'content' => 'required',
+            'cover_image_file' => 'image'
+        ]);
         // dd($request->all()); visualizzo tutti i dati inseriti nel form
         $dati = $request->all();
 

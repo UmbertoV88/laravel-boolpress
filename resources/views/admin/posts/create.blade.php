@@ -5,6 +5,15 @@
         <div class="row">
             <div class="col-sm-12">
                 <h1 class="post-title" > Creazione nuovo post</h1>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form class="" action="{{route('admin.posts.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
