@@ -118,6 +118,14 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'content' => 'required',
+            'cover_image_file' => 'image'
+        ]);
+
+
         $post = Post::find($id);
         $dati = $request->all();
         if (!empty($dati['cover_image_file'])) {
